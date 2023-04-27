@@ -1,0 +1,23 @@
+﻿  Building 'MyDriver1' with toolset 'WindowsKernelModeDriver10.0' and the 'Universal' target platform.
+  Stamping x64\Debug\MyDriver1.inf
+  Stamping [Version] section with DriverVer=04/27/2023,17.26.54.103
+  MyDriver1.c
+  MyDriver1.vcxproj -> D:\learning\Kernel\MyDriver1\x64\Debug\MyDriver1.sys
+  Done Adding Additional Store
+  Successfully signed: D:\learning\Kernel\MyDriver1\x64\Debug\MyDriver1.sys
+  
+  Driver is 'Universal'.
+  ........................
+  Signability test complete.
+  
+  Errors:
+  None
+  
+  Warnings:
+  None
+  
+  Catalog generation complete.
+  D:\learning\Kernel\MyDriver1\x64\Debug\MyDriver1\mydriver1.cat
+  Done Adding Additional Store
+  Successfully signed: D:\learning\Kernel\MyDriver1\x64\Debug\MyDriver1\mydriver1.cat
+  
