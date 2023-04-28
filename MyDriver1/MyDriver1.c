@@ -5,7 +5,7 @@
 #define SYM_NAME L"\\??\\MyFirstDevice"
 
 #define IOCTL_MUL CTL_CODE(FILE_DEVICE_UNKNOWN, 0X9888, METHOD_BUFFERED, FILE_ANY_ACCESS)
-
+char g_DeviceExtension[0x200] = { 0 };
 void DrvUnload(PDRIVER_OBJECT pdriver)
 {
 	DbgPrint("Unload..\n");
@@ -92,8 +92,8 @@ NTSTATUS MyWrite(IN PDEVICE_OBJECT dev, IN PIRP pirp)
 	PIO_STACK_LOCATION pstack = IoGetCurrentIrpStackLocation(pirp);
 	ULONG writelen = pstack->Parameters.Write.Length;
 	PCHAR write_buff = pirp->AssociatedIrp.SystemBuffer;
-
-	RtlZeroMemory(dev->DeviceExtension, 200);
+	dev->DeviceExtension = &g_DeviceExtension;
+	RtlZeroMemory(dev->DeviceExtension, 200);      
 	RtlCopyMemory(dev->DeviceExtension, write_buff, writelen);
 	DbgPrintEx(77, 0, "%s\n", (PCHAR)dev->DeviceExtension);
 
@@ -124,11 +124,14 @@ NTSTATUS MyControl (IN PDEVICE_OBJECT dev, IN PIRP pirp)
 
 	case IOCTL_MUL:
 	{
-		DWORD64 indata = *(PDWORD64)pirp->AssociatedIrp.SystemBuffer;
+		DWORD32 indata = *(PDWORD32)pirp->AssociatedIrp.SystemBuffer;
+
+		DbgPrintEx(77, 0, "indata: %d\n", indata);
+
 		indata = indata * 5;
 		*(PDWORD64)pirp->AssociatedIrp.SystemBuffer = indata;
 
-		ioinfo = 7777;
+		ioinfo = 4;
 		break;
 	}
 		
